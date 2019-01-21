@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
 import Modal from 'react-responsive-modal';
+// import 
 
 import Box from './Box';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';

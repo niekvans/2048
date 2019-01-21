@@ -33,6 +33,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.4.2",
     "react-modal": "2.2.2",
+    "react-responsive-modal": "3.5.1",
     "sass-loader": "^7.1.0",
     "style-loader": "0.18.2",
     "validator": "^10.7.0",
