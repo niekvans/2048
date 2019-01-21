@@ -1,55 +1,149 @@
 .grid {
     flex: 1;
-    display: inline-grid;
-    grid-template-columns: 100px 100px 100px 100px;
+    display: flex;
+    // grid-template-columns: 100px 100px 100px 100px;
     // padding: 10px;
-    background-color: pink;
+    background-color: beige;
     // justify-content: space-around;
     // align-content: space-around;
     // vertical-align: middle;
+    flex-direction: column;
+    align-items: center;
     
+}
+
+.grid-row {
+    display: flex;
+    // flex: 1;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
 }
 
 .grid-item {
     width: 100px;
     height: 100px;
-    vertical-align: middle;
-    align-self: center;
+    // vertical-align: middle;
+    // align-self: center;
+    display: flex;
+    flex: 1;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+
 }
 
+// .grid-item-box {
+//     display: flex;
+//     flex: 1;
+//     align-content: center;
+//     justify-content: space-around;
+//     // vertical-align: middle;
+//     // padding: 5px;
+//     // margin: 5px;
+//     align-self: center;
+// }
+
 .grid-number {
+    display: flex;
+    // flex:1;
     height: 90px;
     width: 90px;
     border: black;
     border-width: 1px;
     border-style: solid;
-    color: white;
+    color: black;
     display: inline-block;
     font-size: 50px;
     text-align: center;
-    vertical-align: middle;
+    // vertical-align: middle;
     align-self: center;
+    align-items: center;
 }
 
-.small {
+.n0 {
     @extend .grid-number;
-    background-color: blue;
 }
 
-.medium {
+.n2 {
     @extend .grid-number;
-    background-color: yellow;
+    background-color: rgba(255, 255, 0, 0.397);
+    // opacity: 0.8;
+}
+
+.n4 {
+    @extend .grid-number;
+    background-color: rgba(255, 255, 0, 0.699);
+    // opacity: 0.8;
+}
+
+.n8 {
+    @extend .grid-number;
+    background-color: rgb(255, 255, 0);
+    // opacity: 0.8;
+}
+
+.n16 {
+    @extend .grid-number;
+    background-color: rgba(0, 174, 255, 0.322);
+    // opacity: 0.8;
+}
+
+.n32 {
+    @extend .grid-number;
+    background-color: rgba(0, 174, 255, 0.685);
+    // opacity: 0.8;
+}
+
+.n64 {
+    @extend .grid-number;
+    background-color: rgb(0, 174, 255);
+}
+
+.n128 {
+    @extend .grid-number;
     font-size: 40px;
+    background-color: rgba(255, 94, 0, 0.24);
 }
 
-.big {
+.n256 {
     @extend .grid-number;
-    background-color: red;
+    font-size: 40px;
+    background-color: rgba(255, 94, 0, 0.664);
+}
+
+.n512 {
+    @extend .grid-number;
+    font-size: 40px;
+    background-color: rgb(255, 94, 0);
+}
+
+.n1024 {
+    @extend .grid-number;
     font-size: 30px;
+    background-color: rgba(0, 255, 0, 0.356);
 }
 
-.super {
+.n2048 {
     @extend .grid-number;
-    background-color: rgb(24, 141, 0);
-    font-size: 20px;
+    font-size: 30px;
+    background-color: rgba(0, 255, 0, 0.596);
+}
+
+.n4096 {
+    @extend .grid-number;
+    font-size: 30px;
+    background-color: rgb(0, 255, 0);
+}
+
+.n8192 {
+    @extend .grid-number;
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0.459);
+}
+
+.n16384 {
+    @extend .grid-number;
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0.753);
 }

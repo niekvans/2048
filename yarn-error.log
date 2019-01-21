@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Niek\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add webpack
+  C:\Program Files\nodejs\node.exe C:\Users\Niek\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-responsive-modal
 
 PATH: 
   C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Users\Niek\AppData\Local\Yarn\bin;C:\Users\Niek\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Niek\AppData\Local\Programs\Python\Python36\;C:\Users\Niek\AppData\Local\Microsoft\WindowsApps;C:\Users\Niek\AppData\Roaming\npm;C:\Program Files\heroku\bin;C:\Users\Niek\AppData\Local\Programs\Microsoft VS Code\bin
@@ -30,7 +30,8 @@ npm manifest:
       "build:prod": "webpack -p --env production",
       "dev-server": "webpack-dev-server",
       "start": "node server/server.js",
-      "test": "jest --config=jest.config.json --watch --verbose false"
+      "test": "jest --config=jest.config.json --watch --verbose false",
+      "heroku-postbuild": "yarn run build:prod"
     },
     "dependencies": {
       "arrow-keys-react": "^1.0.6",

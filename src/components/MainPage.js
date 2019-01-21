@@ -1,6 +1,7 @@
 import React from 'react';
 import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
+import Modal from 'react-responsive-modal';
 
 import Box from './Box';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';
@@ -10,16 +11,9 @@ export default class MainPage extends React.Component {
         super(props);
 
         this.state = {
-            grid: [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
-            ],
+            grid: [],
             gameEnded: false
         };
-
-
 
         ArrowKeysReact.config({
             left: () => {
@@ -58,10 +52,7 @@ export default class MainPage extends React.Component {
     };
 
     componentDidMount() {
-        const result = checkNextMove(this.state.grid);
-        this.setState({
-            grid: result.grid
-        });
+        this.startNewGame();
     };
 
     setStateAndNext = (newGrid) => {
@@ -79,6 +70,19 @@ export default class MainPage extends React.Component {
                     gameEnded: true
                 });
             }
+        });
+    };
+
+    startNewGame = () => {
+
+        const result = checkNextMove([
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]);
+        this.setState({
+            grid: result.grid
         });
     };
 
@@ -105,20 +109,29 @@ export default class MainPage extends React.Component {
 
     render() {
         return (
-            <div {...ArrowKeysReact.events} tabIndex="0" className="container">
-                <h1>Start playing 2048 now!</h1>
-                {this.state.gameEnded ? <h1>This game has Ended!</h1> : <h1>Still an active game going!</h1>}
-                <div className="grid">
-                    {this.state.grid.map((row, index1) => {
-                        return row.map((item, index2) => {
+            <div className="container">
+                <div {...ArrowKeysReact.events} tabIndex="0" className="container">
+                    <h1>Start playing 2048 now!</h1>
+                    <button
+                        onClick={this.startNewGame}
+                    >Start new Game</button>
+                    {this.state.gameEnded ? <h1>This game has Ended!</h1> : <h1>Still an active game going!</h1>}
+                    <div className="grid">
+                        {this.state.grid.map((row, index1) => {
                             return (
-                                <Box key={[index1, index2]} number={item} />
+                                <div className="grid-row">
+                                    {row.map((item, index2) => {
+                                        return (
+                                            <Box key={[index1, index2]} number={item} />
+                                        )
+                                    })
+                                    }
+                                </div>
                             )
-                        })
-                    })}
+                        })}
+                    </div>
                 </div>
             </div>
-
         )
     }
 }
