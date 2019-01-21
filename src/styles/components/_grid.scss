@@ -1,0 +1,55 @@
+.grid {
+    flex: 1;
+    display: inline-grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    // padding: 10px;
+    background-color: pink;
+    // justify-content: space-around;
+    // align-content: space-around;
+    // vertical-align: middle;
+    
+}
+
+.grid-item {
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+    align-self: center;
+}
+
+.grid-number {
+    height: 90px;
+    width: 90px;
+    border: black;
+    border-width: 1px;
+    border-style: solid;
+    color: white;
+    display: inline-block;
+    font-size: 50px;
+    text-align: center;
+    vertical-align: middle;
+    align-self: center;
+}
+
+.small {
+    @extend .grid-number;
+    background-color: blue;
+}
+
+.medium {
+    @extend .grid-number;
+    background-color: yellow;
+    font-size: 40px;
+}
+
+.big {
+    @extend .grid-number;
+    background-color: red;
+    font-size: 30px;
+}
+
+.super {
+    @extend .grid-number;
+    background-color: rgb(24, 141, 0);
+    font-size: 20px;
+}
