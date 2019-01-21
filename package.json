@@ -32,13 +32,14 @@
     "normalize.css": "^8.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.4.2",
+    "react-easy-swipe": "^0.0.17",
     "react-modal": "2.2.2",
     "react-responsive-modal": "3.5.1",
     "sass-loader": "^7.1.0",
     "style-loader": "0.18.2",
     "validator": "^10.7.0",
     "webpack": "3.1.0",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "2.9.1"
   },
   "devDependencies": {
     "jest": "^23.6.0",

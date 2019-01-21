@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
 import Modal from 'react-responsive-modal';
-// import 
+import Swipe from 'react-easy-swipe';
 
 import Box from './Box';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';
@@ -14,7 +14,8 @@ export default class MainPage extends React.Component {
 
         this.state = {
             grid: [],
-            gameEnded: false
+            gameEnded: false,
+            swiped: false
         };
 
         ArrowKeysReact.config({
@@ -75,6 +76,13 @@ export default class MainPage extends React.Component {
         });
     };
 
+    swipeLeft = () => {
+        console.log('swiping left!!');
+        this.setState({
+            swiped: true
+        })
+    }
+
     startNewGame = () => {
         const result = checkNextMove([
             [0, 0, 0, 0],
@@ -117,36 +125,41 @@ export default class MainPage extends React.Component {
 
     render() {
         return (
-            <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
-                <div className="container">
-                    <h1>Start playing 2048 now!</h1>
-                    <button
-                        onClick={this.startNewGame}
-                        className="start-button"
-                    >Start new Game</button>
-                    <Modal
-                        open={this.state.gameEnded}
-                        onClose={this.startNewGame}
-                    >
-                        <h1>Thanks for playing 2048.</h1>
-                        <button onClick={this.startNewGame}>Start a new game!</button>
-                    </Modal>
-                    <div className="grid">
-                        {this.state.grid.map((row, index1) => {
-                            return (
-                                <div className="grid-row" key={index1}>
-                                    {row.map((item, index2) => {
-                                        return (
-                                            <Box key={[index1, index2]} number={item} />
-                                        )
-                                    })
-                                    }
-                                </div>
-                            )
-                        })}
+            <Swipe
+                onSwipeLeft={this.swipeLeft}
+            >
+                <p>{this.state.swiped ? 'I have swiped' : 'not swiped yet'}</p>
+                <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
+                    <div className="container">
+                        <h1>Start playing 2048 now!</h1>
+                        <button
+                            onClick={this.startNewGame}
+                            className="start-button"
+                        >Start new Game</button>
+                        <Modal
+                            open={this.state.gameEnded}
+                            onClose={this.startNewGame}
+                        >
+                            <h1>Thanks for playing 2048.</h1>
+                            <button onClick={this.startNewGame}>Start a new game!</button>
+                        </Modal>
+                        <div className="grid">
+                            {this.state.grid.map((row, index1) => {
+                                return (
+                                    <div className="grid-row" key={index1}>
+                                        {row.map((item, index2) => {
+                                            return (
+                                                <Box key={[index1, index2]} number={item} />
+                                            )
+                                        })
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Swipe>
         )
     }
 }
