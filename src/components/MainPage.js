@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
 import Modal from 'react-responsive-modal';
@@ -74,7 +75,6 @@ export default class MainPage extends React.Component {
     };
 
     startNewGame = () => {
-
         const result = checkNextMove([
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -82,9 +82,16 @@ export default class MainPage extends React.Component {
             [0, 0, 0, 0]
         ]);
         this.setState({
-            grid: result.grid
+            grid: result.grid,
+            gameEnded: false
         });
+
+        this.setFocus();
     };
+
+    setFocus = () => {
+        ReactDOM.findDOMNode(this.refs.playarea).focus();
+    }
 
     chooseClass = (item) => {
         if (item == 0) {
@@ -109,17 +116,24 @@ export default class MainPage extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div {...ArrowKeysReact.events} tabIndex="0" className="container">
+            <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
+                <div className="container">
                     <h1>Start playing 2048 now!</h1>
                     <button
                         onClick={this.startNewGame}
+                        className="start-button"
                     >Start new Game</button>
-                    {this.state.gameEnded ? <h1>This game has Ended!</h1> : <h1>Still an active game going!</h1>}
+                    <Modal
+                        open={this.state.gameEnded}
+                        onClose={this.startNewGame}
+                    >
+                        <h1>Thanks for playing 2048.</h1>
+                        <button onClick={this.startNewGame}>Start a new game!</button>
+                    </Modal>
                     <div className="grid">
                         {this.state.grid.map((row, index1) => {
                             return (
-                                <div className="grid-row">
+                                <div className="grid-row" key={index1}>
                                     {row.map((item, index2) => {
                                         return (
                                             <Box key={[index1, index2]} number={item} />
