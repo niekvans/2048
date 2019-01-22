@@ -19,14 +19,7 @@ export default class MainPage extends React.Component {
         };
 
         ArrowKeysReact.config({
-            left: () => {
-                let wArr = this.state.grid.map((item) => item);
-                moveLeft(wArr).then((result) => {
-                    if (!_.isEqual(result, this.state.grid)) {
-                        this.setStateAndNext(result);
-                    }
-                });
-            },
+            left: this.leftMove(),
             right: () => {
                 let wArr = this.state.grid.map((item) => item);
                 moveRight(wArr).then((result) => {
@@ -76,11 +69,13 @@ export default class MainPage extends React.Component {
         });
     };
 
-    swipeLeft = () => {
-        console.log('swiping left!!');
-        this.setState({
-            swiped: true
-        })
+    leftMove = () => {
+        let wArr = this.state.grid.map((item) => item);
+        moveLeft(wArr).then((result) => {
+            if (!_.isEqual(result, this.state.grid)) {
+                this.setStateAndNext(result);
+            }
+        });
     }
 
     startNewGame = () => {
@@ -126,7 +121,7 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <Swipe
-                onSwipeLeft={this.swipeLeft}
+                onSwipeLeft={this.leftMove}
             >
                 <p>{this.state.swiped ? 'I have swiped' : 'not swiped yet'}</p>
                 <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
