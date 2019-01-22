@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
 import Modal from 'react-responsive-modal';
-import Swipe from 'react-easy-swipe';
+import Swipeable from 'react-swipeable';
 
 import Box from './Box';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';
@@ -129,11 +129,11 @@ export default class MainPage extends React.Component {
 
     render() {
         return (
-            <Swipe
-                onSwipeLeft={this.leftMove}
-                onSwipeRight={this.rightMove}
-                onSwipeUp={this.upMove}
-                onSwipeDown={this.downMove}
+            <Swipeable
+                onSwipedLeft={this.leftMove}
+                onSwipedRight={this.rightMove}
+                onSwipedUp={this.upMove}
+                onSwipedDown={this.downMove}
             >
                 <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
                     <div className="container">
@@ -165,7 +165,7 @@ export default class MainPage extends React.Component {
                         </div>
                     </div>
                 </div>
-            </Swipe>
+            </Swipeable>
         )
     }
 }
