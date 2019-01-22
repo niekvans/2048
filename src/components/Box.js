@@ -1,5 +1,4 @@
 import React from 'react';
-import { strict } from 'assert';
 
 export default class Box extends React.Component {
 
