@@ -134,6 +134,7 @@ export default class MainPage extends React.Component {
                 onSwipedRight={this.rightMove}
                 onSwipedUp={this.upMove}
                 onSwipedDown={this.downMove}
+                preventDefaultTouchmoveEvent={true}
             >
                 <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
                     <div className="container">
