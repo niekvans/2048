@@ -48,6 +48,7 @@ export default class MainPage extends React.Component {
     };
 
     leftMove = () => {
+        console.log('swipe left');
         let wArr = this.state.grid.map((item) => item);
         moveLeft(wArr).then((result) => {
             if (!_.isEqual(result, this.state.grid)) {
@@ -57,6 +58,7 @@ export default class MainPage extends React.Component {
     };
 
     rightMove = () => {
+        console.log('swipe right');
         let wArr = this.state.grid.map((item) => item);
         moveRight(wArr).then((result) => {
             if (!_.isEqual(result, this.state.grid)) {
@@ -66,6 +68,7 @@ export default class MainPage extends React.Component {
     };
 
     upMove = () => {
+        console.log('swipe up');
         let wArr = this.state.grid.map((item) => item);
         moveUp(wArr).then((result) => {
             if (!_.isEqual(result, this.state.grid)) {
@@ -75,6 +78,7 @@ export default class MainPage extends React.Component {
     };
 
     downMove = () => {
+        console.log('swipe down');
         let wArr = this.state.grid.map((item) => item);
         moveDown(wArr).then((result) => {
             if (!_.isEqual(result, this.state.grid)) {
