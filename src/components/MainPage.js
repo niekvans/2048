@@ -14,36 +14,14 @@ export default class MainPage extends React.Component {
 
         this.state = {
             grid: [],
-            gameEnded: false,
-            swiped: false
+            gameEnded: false
         };
 
         ArrowKeysReact.config({
-            left: this.leftMove(),
-            right: () => {
-                let wArr = this.state.grid.map((item) => item);
-                moveRight(wArr).then((result) => {
-                    if (!_.isEqual(result, this.state.grid)) {
-                        this.setStateAndNext(result);
-                    }
-                });
-            },
-            up: () => {
-                let wArr = this.state.grid.map((item) => item);
-                moveUp(wArr).then((result) => {
-                    if (!_.isEqual(result, this.state.grid)) {
-                        this.setStateAndNext(result);
-                    }
-                });
-            },
-            down: () => {
-                let wArr = this.state.grid.map((item) => item);
-                moveDown(wArr).then((result) => {
-                    if (!_.isEqual(result, this.state.grid)) {
-                        this.setStateAndNext(result);
-                    }
-                });
-            }
+            left: () => { this.leftMove() },
+            right: () => { this.rightMove() },
+            up: () => { this.upMove() },
+            down: () => { this.downMove() }
         });
     };
 
@@ -76,7 +54,34 @@ export default class MainPage extends React.Component {
                 this.setStateAndNext(result);
             }
         });
-    }
+    };
+
+    rightMove = () => {
+        let wArr = this.state.grid.map((item) => item);
+        moveRight(wArr).then((result) => {
+            if (!_.isEqual(result, this.state.grid)) {
+                this.setStateAndNext(result);
+            }
+        });
+    };
+
+    upMove = () => {
+        let wArr = this.state.grid.map((item) => item);
+        moveUp(wArr).then((result) => {
+            if (!_.isEqual(result, this.state.grid)) {
+                this.setStateAndNext(result);
+            }
+        });
+    };
+
+    downMove = () => {
+        let wArr = this.state.grid.map((item) => item);
+        moveDown(wArr).then((result) => {
+            if (!_.isEqual(result, this.state.grid)) {
+                this.setStateAndNext(result);
+            }
+        });
+    };
 
     startNewGame = () => {
         const result = checkNextMove([
@@ -122,8 +127,10 @@ export default class MainPage extends React.Component {
         return (
             <Swipe
                 onSwipeLeft={this.leftMove}
+                onSwipeRight={this.rightMove}
+                onSwipeUp={this.upMove}
+                onSwipeDown={this.downMove}
             >
-                <p>{this.state.swiped ? 'I have swiped' : 'not swiped yet'}</p>
                 <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
                     <div className="container">
                         <h1>Start playing 2048 now!</h1>
