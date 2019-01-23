@@ -1,0 +1,19 @@
+.table {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+.table-header {
+    background-color: blue;
+    color: white;
+}
+
+.table-row {
+    border: 1px solid #ddd;
+}
+
+.table-item {
+    text-align: left;
+    padding: 5px;
+    border: none;
+}

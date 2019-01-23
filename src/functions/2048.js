@@ -32,7 +32,6 @@ export function pushGridAndCount(grid) {
     const result = grid.map((row) => {
         let newRow = orderRow(row);
         added += newRow.pop();
-        // console.log(newRow);
         return newRow;
     });
     localStorage.setItem('score', oldScore + added);

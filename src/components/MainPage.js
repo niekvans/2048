@@ -4,8 +4,10 @@ import ArrowKeysReact from 'arrow-keys-react';
 import _ from 'lodash';
 import Modal from 'react-responsive-modal';
 import Swipeable from 'react-swipeable';
+import database from '../firebase/firebase';
 
 import Box from './Box';
+import WinnersList from './WinnersList';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';
 
 export default class MainPage extends React.Component {
@@ -15,7 +17,9 @@ export default class MainPage extends React.Component {
         this.state = {
             grid: [],
             gameEnded: false,
-            score: 0
+            score: 0,
+            lowestScore: 0,
+            playerName: ''
         };
 
         ArrowKeysReact.config({
@@ -39,6 +43,25 @@ export default class MainPage extends React.Component {
         else {
             this.startNewGame();
         }
+
+        database.ref('/scores').on('value', (snapshot) => {
+            const snap = snapshot.val();
+            const scores = [];
+            for (let winner in snap) {
+                scores.push(parseInt(snap[winner].score))
+            }
+            console.log(scores)
+            if (scores.length > 9) {
+                this.setState({
+                    lowestScore: Math.min(...scores)
+                });
+            }
+            else {
+                this.setState({
+                    lowestScore: 0
+                });
+            }
+        });
 
     };
 
@@ -111,15 +134,32 @@ export default class MainPage extends React.Component {
         ]);
         this.setState({
             grid: result.grid,
-            gameEnded: false
+            gameEnded: false,
+            score: 0
         });
 
         this.setFocus();
     };
 
+    saveScore = (event) => {
+        event.preventDefault();
+        database.ref(`/scores/${this.state.score}`).set({
+            name: this.state.playerName,
+            score: this.state.score
+        });
+        console.log('lowest score', this.state.lowestScore);
+        database.ref(`/scores/${this.state.lowestScore}`).remove();
+        this.startNewGame();
+    };
+
+    setPlayerName = (event) => {
+        const playerName = event.target.value;
+        this.setState({ playerName });
+    };
+
     setFocus = () => {
         ReactDOM.findDOMNode(this.refs.playarea).focus();
-    }
+    };
 
     chooseClass = (item) => {
         if (item == 0) {
@@ -154,33 +194,54 @@ export default class MainPage extends React.Component {
                 <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
                     <div className="container">
                         <h1>Start playing 2048 now!</h1>
-                        <button
-                            onClick={this.startNewGame}
-                            className="start-button"
-                        >Start new Game</button>
-                        <div>
-                            Your score: {this.state.score}
-                        </div>
-                        <Modal
-                            open={this.state.gameEnded}
-                            onClose={this.startNewGame}
-                        >
-                            <h1>Thanks for playing 2048.</h1>
-                            <button onClick={this.startNewGame}>Start a new game!</button>
-                        </Modal>
-                        <div className="grid">
-                            {this.state.grid.map((row, index1) => {
-                                return (
-                                    <div className="grid-row" key={index1}>
-                                        {row.map((item, index2) => {
-                                            return (
-                                                <Box key={[index1, index2]} number={item} />
-                                            )
-                                        })
-                                        }
-                                    </div>
-                                )
-                            })}
+                        <div className="playarea">
+                            <div className="container">
+                                <button
+                                    onClick={this.startNewGame}
+                                    className="start-button"
+                                >Start new Game</button>
+                                <div>
+                                    Your score: {this.state.score}
+                                </div>
+                                <Modal
+                                    open={this.state.gameEnded}
+                                    onClose={this.startNewGame}
+                                >
+                                    <h1>Thank you for playing 2048.</h1>
+                                    <p>Your score is {this.state.score}</p>
+                                    {this.state.score > this.state.lowestScore ?
+                                        <div>
+                                            <p>You have made it to the top 10! Please enter your name:</p>
+                                            <form
+                                                onSubmit={this.saveScore}
+                                            >
+                                                <input
+                                                    onChange={this.setPlayerName}
+                                                    value={this.state.playerName}
+                                                />
+                                                <button onClick={this.saveScore}>Save</button>
+                                            </form>
+                                        </div>
+                                        :
+                                        <button onClick={this.startNewGame}>Click here to play again!</button>
+                                    }
+                                </Modal>
+                                <div className="grid">
+                                    {this.state.grid.map((row, index1) => {
+                                        return (
+                                            <div className="grid-row" key={index1}>
+                                                {row.map((item, index2) => {
+                                                    return (
+                                                        <Box key={[index1, index2]} number={item} />
+                                                    )
+                                                })
+                                                }
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            <WinnersList />
                         </div>
                     </div>
                 </div>
