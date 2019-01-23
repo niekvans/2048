@@ -14,19 +14,32 @@ export default class MainPage extends React.Component {
 
         this.state = {
             grid: [],
-            gameEnded: false
+            gameEnded: false,
+            score: 0
         };
 
         ArrowKeysReact.config({
-            left: () => { this.leftMove() },
-            right: () => { this.rightMove() },
-            up: () => { this.upMove() },
-            down: () => { this.downMove() }
+            left: () => { this.move('left') },
+            right: () => { this.move('right') },
+            up: () => { this.move('up') },
+            down: () => { this.move('down') }
         });
     };
 
     componentDidMount() {
-        this.startNewGame();
+        let grid = JSON.parse(localStorage.getItem('grid'));
+        let score = JSON.parse(localStorage.getItem('score'));
+        if (grid) {
+            this.setState({
+                grid,
+                score
+            });
+            this.setFocus();
+        }
+        else {
+            this.startNewGame();
+        }
+
     };
 
     setStateAndNext = (newGrid) => {
@@ -36,54 +49,60 @@ export default class MainPage extends React.Component {
             const result = checkNextMove(this.state.grid);
             if (result.availableMove) {
                 this.setState({
-                    grid: result.grid
+                    grid: result.grid,
+                    score: localStorage.getItem('score')
                 });
+                localStorage.setItem('grid', JSON.stringify(result.grid));
             }
             else {
                 this.setState({
-                    gameEnded: true
+                    gameEnded: true,
+                    score: localStorage.getItem('score')
                 });
             }
         });
     };
 
+    move = (direction) => {
+        const wArr = this.state.grid.map((item) => item);
+        let result;
+        if (direction == 'left') {
+            result = moveLeft(wArr)
+        }
+        else if (direction == 'right') {
+            result = moveRight(wArr)
+        }
+        else if (direction == 'up') {
+            result = moveUp(wArr)
+        }
+        else if (direction == 'down') {
+            result = moveDown(wArr)
+        }
+
+        if (!_.isEqual(result, this.state.grid)) {
+            this.setStateAndNext(result);
+        }
+    }
+
     leftMove = () => {
-        let wArr = this.state.grid.map((item) => item);
-        moveLeft(wArr).then((result) => {
-            if (!_.isEqual(result, this.state.grid)) {
-                this.setStateAndNext(result);
-            }
-        });
+        this.move('left');
     };
 
     rightMove = () => {
-        let wArr = this.state.grid.map((item) => item);
-        moveRight(wArr).then((result) => {
-            if (!_.isEqual(result, this.state.grid)) {
-                this.setStateAndNext(result);
-            }
-        });
+        this.move('right');
     };
 
     upMove = () => {
-        let wArr = this.state.grid.map((item) => item);
-        moveUp(wArr).then((result) => {
-            if (!_.isEqual(result, this.state.grid)) {
-                this.setStateAndNext(result);
-            }
-        });
+        this.move('up');
     };
 
     downMove = () => {
-        let wArr = this.state.grid.map((item) => item);
-        moveDown(wArr).then((result) => {
-            if (!_.isEqual(result, this.state.grid)) {
-                this.setStateAndNext(result);
-            }
-        });
+        this.move('down');
     };
 
     startNewGame = () => {
+        localStorage.setItem('grid', null);
+        localStorage.setItem('score', 0);
         const result = checkNextMove([
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -139,6 +158,9 @@ export default class MainPage extends React.Component {
                             onClick={this.startNewGame}
                             className="start-button"
                         >Start new Game</button>
+                        <div>
+                            Your score: {this.state.score}
+                        </div>
                         <Modal
                             open={this.state.gameEnded}
                             onClose={this.startNewGame}
@@ -165,4 +187,5 @@ export default class MainPage extends React.Component {
             </Swipeable>
         )
     }
-}
+};
+

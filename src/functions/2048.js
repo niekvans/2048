@@ -1,32 +1,43 @@
 import _ from 'lodash';
 
 export function orderRow(row) {
-    return new Promise((resolve) => {
-
-        let wArr = row.filter((item) => item !== 0);
-        let returnArray = [];
-
-        while (wArr.length > 0) {
-            if (wArr.length > 1) {
-                if (wArr[0] === wArr[1]) {
-                    returnArray = [...returnArray, wArr[0] + wArr[1]];
-                    wArr.splice(0, 2);
-                }
-                else {
-                    returnArray = [...returnArray, wArr[0]];
-                    wArr.splice(0, 1);
-                }
+    let wArr = row.filter((item) => item !== 0);
+    let returnArray = [];
+    let additions = 0;
+    while (wArr.length > 0) {
+        if (wArr.length > 1) {
+            if (wArr[0] === wArr[1]) {
+                additions += wArr[0] + wArr[1];
+                returnArray = [...returnArray, wArr[0] + wArr[1]];
+                wArr.splice(0, 2);
             }
             else {
                 returnArray = [...returnArray, wArr[0]];
-                wArr = [];
+                wArr.splice(0, 1);
             }
-        };
+        }
+        else {
+            returnArray = [...returnArray, wArr[0]];
+            wArr = [];
+        }
+    };
 
-        let zeroArray = Array.from(Array(4 - returnArray.length), () => 0);
-        resolve([...returnArray, ...zeroArray]);
-    })
+    let zeroArray = Array.from(Array(4 - returnArray.length), () => 0);
+    return [...returnArray, ...zeroArray, additions];
 };
+
+export function pushGridAndCount(grid) {
+    let oldScore = JSON.parse(localStorage.getItem('score'));
+    let added = 0;
+    const result = grid.map((row) => {
+        let newRow = orderRow(row);
+        added += newRow.pop();
+        // console.log(newRow);
+        return newRow;
+    });
+    localStorage.setItem('score', oldScore + added);
+    return result;
+}
 
 export function rotateLeft(grid) {
     let wGrid = reverse(grid);
@@ -62,30 +73,29 @@ export function reverse(grid) {
 };
 
 export const moveLeft = (grid) => {
-    return Promise.all(grid.map((row) => orderRow(row))).then((result) => {
-        return result;
-    });
+    // return grid.map((row) => orderRow(row));
+    return pushGridAndCount(grid);
 };
 
 export const moveRight = (grid) => {
     const reversedGrid = reverse(grid);
-    return Promise.all(reversedGrid.map((row) => orderRow(row))).then((result) => {
-        return reverse(result);
-    });
+    // let result = reversedGrid.map((row) => orderRow(row));
+    let result = pushGridAndCount(reversedGrid);
+    return reverse(result);
 };
 
 export const moveUp = (grid) => {
     let toLeft = rotateLeft(grid);
-    return Promise.all(toLeft.map((row) => orderRow(row))).then((result) => {
-        return rotateRight(result);
-    });
+    // let result = toLeft.map((row) => orderRow(row));
+    let result = pushGridAndCount(toLeft);
+    return rotateRight(result);
 };
 
 export const moveDown = (grid) => {
     let toRight = rotateRight(grid);
-    return Promise.all(toRight.map((row) => orderRow(row))).then((result) => {
-        return rotateLeft(result);
-    });
+    // let result = toRight.map((row) => orderRow(row));
+    let result = pushGridAndCount(toRight);
+    return rotateLeft(result);
 };
 
 const checkZeros = (grid) => {
