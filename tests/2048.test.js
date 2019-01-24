@@ -94,34 +94,25 @@ beforeEach(() => {
 
 describe('orderRow', () => {
 
-    it('should return correct row [0, 2, 0, 2]', (done) => {
-        orderRow([0, 2, 0, 2]).then((result) => {
-            expect(result).toEqual([4, 0, 0, 0]);
-            done();
-        });
+    it('should return correct row [0, 2, 0, 2]', () => {
+        let result = orderRow([0, 2, 0, 2])
+        expect(result).toEqual([4, 0, 0, 0, 4]);
     });
 
-    it('should return correct row [0, 8, 0, 2]', (done) => {
-        orderRow([0, 8, 0, 2]).then((result) => {
-            expect(result).toEqual([8, 2, 0, 0]);
-            done();
-        });
+    it('should return correct row [0, 8, 0, 2]', () => {
+        let result = orderRow([0, 8, 0, 2])
+        expect(result).toEqual([8, 2, 0, 0, 0]);
     });
 
-    it('should return correct row [4, 4, 4, 2]', (done) => {
-        orderRow([4, 4, 4, 2]).then((result) => {
-            expect(result).toEqual([8, 4, 2, 0]);
-            done();
-        });
+    it('should return correct row [4, 4, 4, 2]', () => {
+        let result = orderRow([4, 4, 4, 2])
+        expect(result).toEqual([8, 4, 2, 0, 8]);
     });
 
-    it('should return correct row [0, 0, 0, 0]', (done) => {
-        orderRow([0, 0, 0, 0]).then((result) => {
-            expect(result).toEqual([0, 0, 0, 0]);
-            done();
-        });
+    it('should return correct row [0, 0, 0, 0]', () => {
+        let result = orderRow([0, 0, 0, 0])
+        expect(result).toEqual([0, 0, 0, 0, 0]);
     });
-
 });
 
 describe('rotateLeft', () => {
@@ -132,7 +123,7 @@ describe('rotateLeft', () => {
 });
 
 describe('rotateRight', () => {
-    it('should rotate a grid rigth', () => {
+    it('should rotate a grid right', () => {
         const result = rotateRight(grids[1]);
         expect(result).toEqual(grids[0]);
     });
@@ -146,59 +137,51 @@ describe('reverse', () => {
 });
 
 describe('moveUp', () => {
-    it('should perform the move UP', (done) => {
-        moveUp(grids[4]).then((result) => {
-            expect(result).toEqual(grids[5]);
-            done();
-        });
+    it('should perform the move UP', () => {
+        let result = moveUp(grids[4])
+        expect(result).toEqual(grids[5]);
     });
 });
 
 describe('moveDown', () => {
-    it('should perform the move down', (done) => {
-        moveDown(grids[4]).then((result) => {
-            expect(result).toEqual(grids[6]);
-            done();
-        });
+    it('should perform the move down', () => {
+        let result = moveDown(grids[4])
+        expect(result).toEqual(grids[6]);
     });
 });
 
 describe('moveLeft', () => {
-    it('should perform the move left', (done) => {
-        moveLeft(grids[4]).then((result) => {
-            expect(result).toEqual(grids[7]);
-            done();
-        });
+    it('should perform the move left', () => {
+        let result = moveLeft(grids[4])
+        expect(result).toEqual(grids[7]);
     });
 });
 
 describe('moveRigth', () => {
-    it('should perform the move right', (done) => {
-        moveRight(grids[4]).then((result) => {
-            expect(result).toEqual(grids[8]);
-            done();
-        });
+    it('should perform the move right', () => {
+        let result = moveRight(grids[4])
+        expect(result).toEqual(grids[8]);
     });
 });
 
-describe('should check if there are still options left',()=>{
-    it('should return true because options left',()=>{
-        const result = checkGrid(grids[4],10);
+describe('should check if there are still options left', () => {
+    it('should return true because options left', () => {
+        const result = checkGrid(grids[4], 10);
         expect(result).toBe(true);
     });
 
-    it('should return true because options left',()=>{
-        const result = checkGrid(grids[10],0);
+    it('should return true because options left', () => {
+        const result = checkGrid(grids[10], 0);
         expect(result).toBe(true);
     });
 
-    it('should return true because options left',()=>{
-        const result = checkGrid(grids[11],0);
+    it('should return true because options left', () => {
+        const result = checkGrid(grids[11], 0);
         expect(result).toBe(true);
     });
 
-    it('should return false because no options left',()=>{
-        const result = checkGrid(grids[9],0);
+    it('should return false because no options left', () => {
+        const result = checkGrid(grids[9], 0);
         expect(result).toBe(false);
     });
 });
