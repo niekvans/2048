@@ -7,7 +7,9 @@ import Swipeable from 'react-swipeable';
 import database from '../firebase/firebase';
 
 import Box from './Box';
+import Header from './Header';
 import WinnersList from './WinnersList';
+import Score from './Score';
 import { moveLeft, moveRight, moveUp, moveDown, checkNextMove } from '../functions/2048';
 
 export default class MainPage extends React.Component {
@@ -50,7 +52,6 @@ export default class MainPage extends React.Component {
             for (let winner in snap) {
                 scores.push(parseInt(snap[winner].score))
             }
-            console.log(scores)
             if (scores.length > 9) {
                 this.setState({
                     lowestScore: Math.min(...scores)
@@ -147,7 +148,6 @@ export default class MainPage extends React.Component {
             name: this.state.playerName,
             score: this.state.score
         });
-        console.log('lowest score', this.state.lowestScore);
         database.ref(`/scores/${this.state.lowestScore}`).remove();
         this.startNewGame();
     };
@@ -184,68 +184,68 @@ export default class MainPage extends React.Component {
 
     render() {
         return (
-            <Swipeable
-                onSwipedLeft={this.leftMove}
-                onSwipedRight={this.rightMove}
-                onSwipedUp={this.upMove}
-                onSwipedDown={this.downMove}
-                preventDefaultTouchmoveEvent={true}
-            >
-                <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container">
-                    <div className="container">
-                        <h1>Start playing 2048 now!</h1>
-                        <div className="playarea">
-                            <div className="container">
-                                <button
-                                    onClick={this.startNewGame}
-                                    className="start-button"
-                                >Start new Game</button>
-                                <div>
-                                    Your score: {this.state.score}
-                                </div>
-                                <Modal
-                                    open={this.state.gameEnded}
-                                    onClose={this.startNewGame}
-                                >
-                                    <h1>Thank you for playing 2048.</h1>
-                                    <p>Your score is {this.state.score}</p>
-                                    {this.state.score > this.state.lowestScore ?
-                                        <div>
-                                            <p>You have made it to the top 10! Please enter your name:</p>
-                                            <form
-                                                onSubmit={this.saveScore}
-                                            >
-                                                <input
-                                                    onChange={this.setPlayerName}
-                                                    value={this.state.playerName}
-                                                />
-                                                <button onClick={this.saveScore}>Save</button>
-                                            </form>
-                                        </div>
-                                        :
-                                        <button onClick={this.startNewGame}>Click here to play again!</button>
-                                    }
-                                </Modal>
-                                <div className="grid">
-                                    {this.state.grid.map((row, index1) => {
-                                        return (
-                                            <div className="grid-row" key={index1}>
-                                                {row.map((item, index2) => {
-                                                    return (
-                                                        <Box key={[index1, index2]} number={item} />
-                                                    )
-                                                })
-                                                }
+            <div>
+                <Header title="Play 2048 now!"/>
+                <Swipeable
+                    onSwipedLeft={this.leftMove}
+                    onSwipedRight={this.rightMove}
+                    onSwipedUp={this.upMove}
+                    onSwipedDown={this.downMove}
+                    preventDefaultTouchmoveEvent={true}
+                >
+                    <div {...ArrowKeysReact.events} ref="playarea" tabIndex="0" className="container playarea">
+                        <div className="container">
+                            <div className="playarea">
+                                <div className="container">
+                                    <button
+                                        onClick={this.startNewGame}
+                                        className="start-button"
+                                    >Start new Game</button>
+                                    <Score score={this.state.score} />
+                                    <Modal
+                                        open={this.state.gameEnded}
+                                        onClose={this.startNewGame}
+                                    >
+                                        <h1>Thank you for playing 2048.</h1>
+                                        <p>Your score is {this.state.score}</p>
+                                        {this.state.score > this.state.lowestScore ?
+                                            <div>
+                                                <p>You have made it to the top 10! Please enter your name:</p>
+                                                <form
+                                                    onSubmit={this.saveScore}
+                                                >
+                                                    <input
+                                                        onChange={this.setPlayerName}
+                                                        value={this.state.playerName}
+                                                    />
+                                                    <button onClick={this.saveScore}>Save</button>
+                                                </form>
                                             </div>
-                                        )
-                                    })}
+                                            :
+                                            <button onClick={this.startNewGame}>Click here to play again!</button>
+                                        }
+                                    </Modal>
+                                    <div className="grid">
+                                        {this.state.grid.map((row, index1) => {
+                                            return (
+                                                <div className="grid-row" key={index1}>
+                                                    {row.map((item, index2) => {
+                                                        return (
+                                                            <Box key={[index1, index2]} number={item} />
+                                                        )
+                                                    })
+                                                    }
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
+                                <WinnersList />
                             </div>
-                            <WinnersList />
                         </div>
                     </div>
-                </div>
-            </Swipeable>
+                </Swipeable>
+            </div>
         )
     }
 };

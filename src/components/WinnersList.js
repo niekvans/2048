@@ -42,20 +42,24 @@ export default class WinnersList extends React.Component {
                 <h3>High Scores!</h3>
 
                 <table className="table">
-                    <tr className="table-header">
-                        <th className="table-item">Ranking</th>
-                        <th className="table-item">Name</th>
-                        <th className="table-item">Score</th>
-                    </tr>
-                    {this.state.winners.map((winner, index) => {
-                        return (
-                            <tr key={winner.score} className="table-row">
-                                <th className="table-item">{index + 1}</th>
-                                <th className="table-item">{winner.name}</th>
-                                <th className="table-item">{winner.score}</th>
-                            </tr>
-                        )
-                    })}
+                    <thead>
+                        <tr className="table-header">
+                            <th className="table-item">Ranking</th>
+                            <th className="table-item">Name</th>
+                            <th className="table-item">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.winners.map((winner, index) => {
+                            return (
+                                <tr key={winner.score} className="table-row">
+                                    <th className="table-item">{index + 1}</th>
+                                    <th className="table-item">{winner.name}</th>
+                                    <th className="table-item">{winner.score}</th>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
                 </table>
 
             </div>

@@ -1,0 +1,23 @@
+.header {
+    background: $light-purple;
+    display: flex;
+    // padding: 100px;
+    // text-align: center;
+}
+
+.header__content {
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 1.2rem;
+}
+
+.header__title {
+    color: $dark-blue;
+    text-decoration: none;
+    h1 {
+        margin: 0;
+    }
+}

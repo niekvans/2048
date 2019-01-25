@@ -1,13 +1,15 @@
 .start-button {
-    background: blue;
+    background: lighten($blue,20%);
     border: none;
-    color: white;
+    border-radius: 10px;
+    color: $dark-blue;
     display: inline-block;
     padding: 15px 30px;
     font-size: 30px;
-    margin-bottom: 30px;
+    font-weight: bold;
+    // margin-bottom: 30px;
     // font-size: $font-size-large;
-    font-weight: 300;
+    // font-weight: 300;
     // line-height: 1;
     // padding: $s-size;
     // text-decoration: none;
