@@ -142,20 +142,23 @@
     font-size: 30px;
     // background-color: rgba(0, 255, 0, 0.596);
     background-color: $green;
+    color:lighten($blue,10%);
 }
 
 .n4096 {
     @extend .grid-number;
     font-size: 30px;
     // background-color: rgb(0, 255, 0);
-    background-color: darken($green, 10%)
+    background-color: darken($green, 10%);
+    color: lighten($blue, 20%);
 }
 
 .n8192 {
     @extend .grid-number;
     font-size: 30px;
     // background-color: rgba(0, 0, 0, 0.459);
-    background-color: darken($green, 30%)
+    background-color: darken($green, 30%);
+    color: lighten($blue, 30%);
 }
 
 .n16384 {

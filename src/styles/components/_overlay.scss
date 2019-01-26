@@ -1,0 +1,23 @@
+.modal {
+    background-color: $red;
+    color: $dark-blue;
+    // padding: 30px;
+    // margin: 200px;
+    border-radius: 10px;
+    h3 {
+        font-size: 1.8rem;
+    }
+    p {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+}
+
+.modal-input {
+    // background-color: lighten($blue,20%);
+    border-radius: 5px;
+    font-size: 1.8rem;
+    color: $dark-blue;
+    font-weight: bold;
+    padding-left: 10px;
+}

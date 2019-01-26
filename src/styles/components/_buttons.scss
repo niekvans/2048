@@ -1,16 +1,27 @@
-.start-button {
+.button {
     background: lighten($blue,20%);
     border: none;
     border-radius: 10px;
     color: $dark-blue;
     display: inline-block;
+    font-weight: bold;
+}
+
+.start-button {
+    @extend .button;
     padding: 15px 30px;
     font-size: 30px;
-    font-weight: bold;
-    // margin-bottom: 30px;
-    // font-size: $font-size-large;
-    // font-weight: 300;
-    // line-height: 1;
-    // padding: $s-size;
-    // text-decoration: none;
+}
+
+.start-again-button {
+    @extend .button;
+    font-size: 1.8rem;
+    padding: 10px;
+}
+
+.save-button {
+    @extend .button;
+    font-size: 1.8rem;
+    padding: 3px;
+    margin-left: 10px;
 }

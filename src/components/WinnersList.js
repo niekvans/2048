@@ -39,14 +39,12 @@ export default class WinnersList extends React.Component {
 
         return (
             <div className="winner-list">
-                <h3>High Scores!</h3>
-
-                <table className="table">
+                <table className="winner-table">
                     <thead>
                         <tr className="table-header">
-                            <th className="table-item">Ranking</th>
-                            <th className="table-item">Name</th>
-                            <th className="table-item">Score</th>
+                            <th className="table-header-item left-top">Ranking</th>
+                            <th className="table-header-item">Name</th>
+                            <th className="table-header-item right-top">Score</th>
                         </tr>
                     </thead>
                     <tbody>

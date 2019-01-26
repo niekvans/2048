@@ -185,7 +185,7 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <div>
-                <Header title="Play 2048 now!"/>
+                <Header title="Play 2048 now!" />
                 <Swipeable
                     onSwipedLeft={this.leftMove}
                     onSwipedRight={this.rightMove}
@@ -205,25 +205,31 @@ export default class MainPage extends React.Component {
                                     <Modal
                                         open={this.state.gameEnded}
                                         onClose={this.startNewGame}
+                                        showCloseIcon={false}
+                                        classNames={{
+                                            modal: "modal"
+                                        }}
                                     >
-                                        <h1>Thank you for playing 2048.</h1>
-                                        <p>Your score is {this.state.score}</p>
-                                        {this.state.score > this.state.lowestScore ?
-                                            <div>
-                                                <p>You have made it to the top 10! Please enter your name:</p>
-                                                <form
-                                                    onSubmit={this.saveScore}
-                                                >
-                                                    <input
-                                                        onChange={this.setPlayerName}
-                                                        value={this.state.playerName}
-                                                    />
-                                                    <button onClick={this.saveScore}>Save</button>
-                                                </form>
-                                            </div>
-                                            :
-                                            <button onClick={this.startNewGame}>Click here to play again!</button>
-                                        }
+                                            <h3>Thank you for playing 2048. Your reached {this.state.score} points.</h3>
+                                            {this.state.score > this.state.lowestScore ?
+                                        
+                                                <div>
+                                                    <h3>You have made it to the top 10! Please enter your name:</h3>
+                                                    <form
+                                                        onSubmit={this.saveScore}
+                                                    >
+                                                        <input
+                                                            onChange={this.setPlayerName}
+                                                            value={this.state.playerName}
+                                                            placeholder="Your name..."
+                                                            className="modal-input"
+                                                        />
+                                                        <button className="save-button" onClick={this.saveScore}>Save</button>
+                                                    </form>
+                                                </div>
+                                                :
+                                                <button className="start-again-button" onClick={this.startNewGame}>Click here to play again!</button>
+                                            }
                                     </Modal>
                                     <div className="grid">
                                         {this.state.grid.map((row, index1) => {
