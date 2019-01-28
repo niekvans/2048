@@ -1,13 +1,9 @@
 .grid {
     flex: 1;
     display: flex;
-    // grid-template-columns: 100px 100px 100px 100px;
     padding: 10px;
     background-color: $dark-blue;
     border-radius: 10px;
-    // justify-content: space-around;
-    // align-content: space-around;
-    // vertical-align: middle;
     flex-direction: column;
     align-items: center;
     
@@ -15,7 +11,6 @@
 
 .grid-row {
     display: flex;
-    // flex: 1;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-end;
@@ -24,44 +19,35 @@
 .grid-item {
     width: 100px;
     height: 100px;
-    // vertical-align: middle;
-    // align-self: center;
-    display: flex;
+    position: relative;
+    vertical-align: middle;
+    align-self: center;
+    display: grid;
     flex: 1;
     align-content: center;
     justify-content: space-around;
     align-items: center;
+    vertical-align: middle;
 
 }
 
-// .grid-item-box {
-//     display: flex;
-//     flex: 1;
-//     align-content: center;
-//     justify-content: space-around;
-//     // vertical-align: middle;
-//     // padding: 5px;
-//     // margin: 5px;
-//     align-self: center;
-// }
+.number {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 .grid-number {
     background-color: $light-purple;
-    display: flex;
-    // flex:1;
+    position: relative;
     height: 90px;
     width: 90px;
-    // border: $light-purple;
-    // border-width: 1px;
-    // border-radius: 10px;
-    // border-style: solid;
     color: $dark-blue;
     display: inline-block;
     font-size: 50px;
     text-align: center;
-    vertical-align: middle;
-    align-self: center;
-    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .n0 {
@@ -70,77 +56,61 @@
 
 .n2 {
     @extend .grid-number;
-    // background-color: rgba(255, 255, 0, 0.397);
     background-color: lighten($yellow, 10%);
-    // opacity: 0.8;
 }
 
 .n4 {
     @extend .grid-number;
-    // background-color: rgba(255, 255, 0, 0.699);
     background-color: $yellow;
-    // opacity: 0.8;
 }
 
 .n8 {
     @extend .grid-number;
-    // background-color: rgb(255, 255, 0);
     background-color: darken($yellow, 10%);
-    // opacity: 0.8;
 }
 
 .n16 {
     @extend .grid-number;
-    // background-color: rgba(0, 174, 255, 0.322);
     background-color: lighten($blue, 10%);
-    // opacity: 0.8;
 }
 
 .n32 {
     @extend .grid-number;
-    // background-color: rgba(0, 174, 255, 0.685);
     background-color: $blue;
-    // opacity: 0.8;
 }
 
 .n64 {
     @extend .grid-number;
-    // background-color: rgb(0, 174, 255);
     background-color: darken($blue, 10%);
 }
 
 .n128 {
     @extend .grid-number;
     font-size: 40px;
-    // background-color: rgba(255, 94, 0, 0.24);
     background-color: lighten($red, 10%);
 }
 
 .n256 {
     @extend .grid-number;
     font-size: 40px;
-    // background-color: rgba(255, 94, 0, 0.664);
     background-color: $red;
 }
 
 .n512 {
     @extend .grid-number;
     font-size: 40px;
-    // background-color: rgb(255, 94, 0);
     background-color: darken($red, 10%);
 }
 
 .n1024 {
     @extend .grid-number;
     font-size: 30px;
-    // background-color: rgba(0, 255, 0, 0.356);
     background-color: lighten($green, 10%)
 }
 
 .n2048 {
     @extend .grid-number;
     font-size: 30px;
-    // background-color: rgba(0, 255, 0, 0.596);
     background-color: $green;
     color:lighten($blue,10%);
 }
@@ -148,7 +118,6 @@
 .n4096 {
     @extend .grid-number;
     font-size: 30px;
-    // background-color: rgb(0, 255, 0);
     background-color: darken($green, 10%);
     color: lighten($blue, 20%);
 }
@@ -156,7 +125,6 @@
 .n8192 {
     @extend .grid-number;
     font-size: 30px;
-    // background-color: rgba(0, 0, 0, 0.459);
     background-color: darken($green, 30%);
     color: lighten($blue, 30%);
 }
@@ -164,6 +132,5 @@
 .n16384 {
     @extend .grid-number;
     font-size: 25px;
-    // background-color: rgba(0, 0, 0, 0.753);
     background-color: darken($green, 50%)
 }

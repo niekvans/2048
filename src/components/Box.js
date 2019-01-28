@@ -12,7 +12,7 @@ export default class Box extends React.Component {
                 <div
                     className={this.chooseClass(this.props.number)}
                 >
-                    <div>
+                    <div className="number">
                         {this.props.number == 0 ? undefined : this.props.number}
                     </div>
                 </div>
